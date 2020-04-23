@@ -10,9 +10,9 @@
             </div>
 
             <div class="col">
-              <select name="" id="" @change="onChange($event)"  >
-                <option  name= "celorocne" value="39" id="dlhodobe">Celoročné poistenie</option>
-							<option name ="kratkodobe" value="1,2 * počet dní " id="kratkodobe">Krátkodobé poistenie</option>
+              <select  id="insurance" @change="onChange($event)">
+                <option  name= "celorocne" :value="dlhodobe()" >Celoročné poistenie</option>
+							  <option name ="kratkodobe" :value="kratkodobe()" >Krátkodobé poistenie</option>
               </select>
             </div>           
           </div>
@@ -23,7 +23,7 @@
             </div>
 
             <div class="col">             
-							<input type="date">						
+							<input type="date" v-model="dateStart" >						
             </div>           
           </div>
 
@@ -33,7 +33,7 @@
             </div>
 
             <div class="col">             
-							<input type="date">						
+							<input type="date" v-model="dateEnd">						
             </div>            
           </div>
 
@@ -57,8 +57,8 @@
             </div>
 
             <div class="col">             
-							<input type="text"> 
-              
+							<input type="text" :placeholder="[[ kratkodobe()]]"> 
+             
           </div>
 
         </div>       
@@ -72,21 +72,25 @@
 export default{
         data: function(){
           return{
-            status: 'Critical',
-           
+            dateStart: '',
+            dateEnd: '',
           }
         },
         methods:{
-          kratkodobe(){
-           return document.getElementById('kratkodobe').value + '€';
-             
-          },         
-          dlhodobe(){
-            return document.getElementById('dlhodobe').value + '€';
-          },
-          onChange(event){
-            console.log(event.target.value) ;
-        }
+            onChange(event) {
+              console.log(event.target.value);
+             },
+            kratkodobe(){
+                 //vyparsuje zvolený dátum v milisekundách (den ma 86400000 ms) a vysledok vydelíš dnom, nasledne jedno od druheho odčitaš a to +1 je že zahrna už aj zvolený den
+            // to 1,2 je kratkodobe poistenie zakladný balík ale bude sa ešte meniť
+                var date1 = Date.parse(this.dateStart)/86400000;
+                var date2 = Date.parse(this.dateEnd)/86400000;
+                  console.log(((date2 - date1 + 1) * 1.2).toFixed(2) + '€'); 
+            },
+            dlhodobe(){
+                console.log(39 +'€'); 
+            },
+
         },
       }
 
