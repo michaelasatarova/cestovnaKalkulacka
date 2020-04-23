@@ -44,7 +44,7 @@
 
             <div class="col">
               <select name="" id="">
-                <option value="">Základný</option>
+                <option value="#">Základný</option>
                 <option value="">Rozšírený</option>
                 <option value="">Extra</option>
               </select>
