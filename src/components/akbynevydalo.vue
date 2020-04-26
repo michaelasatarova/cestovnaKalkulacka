@@ -10,7 +10,7 @@
             </div>
 
             <div class="col">
-              <select  id="insurance">
+              <select  id="insurance" @change="onChange($event)">
                 <option  name="celorocne" value="dlhodobe" >Celoročné poistenie</option>
 							  <option name ="kratkodobe" value="kratkodobe" >Krátkodobé poistenie</option>
               </select>
@@ -57,9 +57,8 @@
             </div>
 
             <div class="col">             
-							<input type="text" :placeholder="[['vysledok fungule v konzole']]"> 
-              <div class="btn btn-primary" @click="onChange()" >Vypočítaj</div>
-              
+							<input type="text" :placeholder="[['ahoj']]"> 
+              <div class="btn btn-primary">Vypočítaj</div>
           </div>
 
         </div>       
@@ -77,45 +76,31 @@ export default{
             dateEnd: '',
           }
         },
-      
+        mounted() {
+        alert('mounted') // I'm text inside the component.
+        } ,
         methods:{
-            onChange() {
-               var insurance = document.getElementById('insurance'); 
-               var insurance2 = document.getElementById('insurance2');
-               
-                //vyparsuje zvolený dátum v milisekundách (den ma 86400000 ms) a vysledok vydelíš dnom, nasledne jedno od druheho odčitaš a to +1 je že zahrna už aj zvolený den
-               var date1 = Date.parse(this.dateStart)/86400000;
-               var date2 = Date.parse(this.dateEnd)/86400000;
-
-              //celoročné,zakladne
-                if(insurance.value == "dlhodobe" && insurance2.value == "zakladny" ){
+            /*variantPoistenia(){
+              var insurance = document.getElementById('insurance');
+              if(insurance.value)
+            },*/
+            onChange(event) {
+               //var insurance = document.getElementById('insurance'); 
+                if(event.target.value == "dlhodobe"){
                 console.log(39 +'€');
+              }else{
+                //vyparsuje zvolený dátum v milisekundách (den ma 86400000 ms) a vysledok vydelíš dnom, nasledne jedno od druheho odčitaš a to +1 je že zahrna už aj zvolený den
+                // to 1,2 je kratkodobe poistenie zakladný balík ale bude sa ešte meniť
+                var date1 = Date.parse(this.dateStart)/86400000;
+                var date2 = Date.parse(this.dateEnd)/86400000;
+                  console.log(((date2 - date1 + 1) * 1.2).toFixed(2) + '€'); 
               }
-              //celoročné,rozsireny
-              else if(insurance.value == "dlhodobe" && insurance2.value == "rozsireny"){
-                console.log(49 +'€');
-              }
-              //celoročné,extra
-              else if(insurance.value == "dlhodobe" && insurance2.value == "extra"){
-                console.log(59 +'€');
-              }
-              // kratkodobe zakladny
-              else if(insurance.value == "kratkodobe" && insurance2.value == "zakladny"){            
-                 console.log(((date2 - date1 + 1) * 1.2).toFixed(2) + '€'); 
-              }
-              // kratkodobe rozsireny
-              else if(insurance.value == "kratkodobe" && insurance2.value == "rozsireny"){              
-                  console.log(((date2 - date1 + 1) * 1.8).toFixed(2) + '€'); 
-              }
-               // kratkodobe extra
-              else if(insurance.value == "kratkodobe" && insurance2.value == "extra"){           
-                  console.log(((date2 - date1 + 1) * 2.4).toFixed(2) + '€'); 
-              }            
-              else{
-                  console.log('Vyplň všetky povinne polia'); 
-              }
+              //console.log(event.target.value);
              },
         },
+        updated(){
+          console.log('updated');
+        }
       }
 
 
