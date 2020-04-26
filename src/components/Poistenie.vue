@@ -51,6 +51,52 @@
             </div>           
           </div>
 
+           <div class="row">           
+            <div class="col-5 m-3">
+              <h5><strong>Storno cesty</strong></h5>
+            </div>
+
+          <div class="col">
+            <div class="row">
+              <div class="col m-3 form-check">
+                  <input class="form-check-input" type="radio" name="storno" id="exampleRadios1" value="option1" >
+                  <label class="form-check-label" for="exampleRadios1">
+                    ANO
+                  </label>          
+              </div>
+              <div class="col m-3 form-check">
+                  <input class="form-check-input" type="radio" name="storno" id="exampleRadios1" value="option1" >
+                  <label class="form-check-label" for="exampleRadios1">
+                    NIE
+                  </label>          
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="row">           
+            <div class="col-5 m-3">
+              <h5><strong>Športove aktivity</strong></h5>
+            </div>
+
+          <div class="col">
+            <div class="row">
+              <div class="col m-3 form-check">
+                  <input class="form-check-input" type="radio" name="šport" id="exampleRadios3" value="option3" >
+                  <label class="form-check-label" for="exampleRadios3">
+                    ANO
+                  </label>          
+              </div>
+              <div class="col m-3 form-check">
+                  <input class="form-check-input" type="radio" name="šport" id="exampleRadios4" value="option4" >
+                  <label class="form-check-label" for="exampleRadios4">
+                    NIE
+                  </label>          
+              </div>
+            </div>
+        </div>
+      </div>
+
           <div class="row">           
             <div class="col mt-3">
               <h5><strong>Cena Poistenia</strong></h5>
@@ -58,7 +104,7 @@
 
             <div class="col">             
 							<input type="text" :placeholder="[['vysledok fungule v konzole']]"> 
-              <div class="btn btn-primary" @click="onChange()" >Vypočítaj</div>
+              <div class="btn btn-primary mt-3" @click="onChange()" >Vypočítaj</div>
               
           </div>
 

@@ -1,8 +1,8 @@
 <template>
-  <div id="app" class="pb-5" :style="{'background-image': 'url(' + require('./assets/img/plaz.jpg') + ')' }" >
+  <div id="app"  >
                              
     <Poistenie />
-    <div class="pt-5 container bg-light">
+    <div class="py-5 container bg-light">
       <Table></Table>
     </div>
     
@@ -27,5 +27,10 @@ export default {
 @import 'node_modules/bootstrap/scss/bootstrap';
 @import '../src/assets/sass/app.scss';
 
+#app{
+  background-image: url("./assets/img/plaz.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
 </style>

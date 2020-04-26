@@ -1,6 +1,6 @@
 <template>
     <div>
-        <table class="table container table-striped bg-light">
+        <table class="table container table-striped bg-light  ">
 							<thead>
 								<tr>
 									<th><h1></h1></th>
