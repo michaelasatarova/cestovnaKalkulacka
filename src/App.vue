@@ -14,11 +14,13 @@
 import Poistenie from "./components/Poistenie.vue";
 import Table from "./components/Table.vue";
 
+
 export default {
   name: "app",
   components: {
     Poistenie,
     Table,
+  
   }
 };
 </script>

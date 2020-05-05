@@ -19,15 +19,18 @@
                 </div>           
               </div>
 
-                <div v-if="selected === 'kratkodobe'" >
+                <div v-if="selected === 'kratkodobe'" required>
                     <div class="row">           
                     <div class="col mt-3">
                     <label> <h5><strong>Začiatok Poistenia</strong></h5></label>
                     </div>
 
                     <div class="col">             
-                    <input type="date"  v-model="dateStart" id="insStart" >
-              <!--<datepicker :readonly="true" format="DD.MM.YYYY" name="date1" :value="state" ></datepicker>	-->       					
+                    <datepicker
+                        v-model="dateStart"
+                        :format="DatePickerFormat"
+                        :disabledDates="disabledDates">
+                    </datepicker>	      					
                     </div>           
                   </div>
 
@@ -36,8 +39,12 @@
                       <label><h5><strong>Koniec Poistenia</strong></h5></label>
                     </div>
 
-                    <div class="col">             
-                      <input type="date" v-model="dateEnd">						
+                    <div class="col">                             
+                      <datepicker
+                        v-model="dateEnd"
+                        :format="DatePickerFormat"
+                        :disabledDates="disabledDates">
+                    </datepicker>						
                     </div>            
                   </div>
               </div>
@@ -45,7 +52,7 @@
 
               <div class="row">           
                 <div class="col mt-3">
-                  <label><h5><strong>Variant Poistenia</strong></h5></label>
+                  <label><h5><strong>Balíček Poistenia</strong></h5></label>
                 </div>
 
                 <div class="col">
@@ -58,27 +65,26 @@
                 </div>           
               </div>
 
-              <div class="row">           
+              <div class="row"> 
+
+
                 <div class="col-5 m-3">
-                  <label><h5><strong>Storno cesty</strong></h5></label>
+                  <label><h5><strong>Storno cesty</strong></h5></label>            
                 </div>
 
               <div class="col">
                 <div class="row">
                   <div class="col m-3 form-check">
                       <input class="form-check-input" type="radio" name="storno" id="exampleRadios1" value="option1" >
-                      <label class="form-check-label" for="exampleRadios1">
-                        ANO
-                      </label>          
+                      <label class="form-check-label" for="exampleRadios1">ANO</label>                            
                   </div>
                   <div class="col m-3 form-check">
                       <input class="form-check-input" type="radio" name="storno" id="exampleRadios1" value="option1" >
-                      <label class="form-check-label" for="exampleRadios1">
-                        NIE
-                      </label>          
+                      <label class="form-check-label" for="exampleRadios1">NIE</label>                             
                   </div>
                 </div>
             </div>
+
           </div>
 
           <div class="row">           
@@ -110,8 +116,9 @@
                 </div>
 
                 <div class="col">             
-                  <input type="text" :placeholder="[[final]]"> 
-                  <div class="btn btn-primary mt-3" @click="onChange()" >Vypočítaj</div>
+                  <input type="text" :placeholder="[[final]]">
+                  
+                  <div  class="btn btn-primary mt-3" @click="onChange()" >Vypočítaj</div>
                   
               </div>
 
@@ -123,32 +130,38 @@
 </template>
 
 <script>
-//import datepicker from 'vue-date-picker';
+import Datepicker from 'vuejs-datepicker';
 
 export default{
         components: {
-                  // datepicker,
+                   Datepicker,
               },
         data: function(){
           return{
-            selected: '',
-            dateStart: '',
-            dateEnd: '',
-            final: '',
-           
-          }
-        },
-      
+            selected: '',       
+            final: '',        
+            dateStart:"", 
+            dateEnd: '',                        
+            DatePickerFormat: "dd/MM/yyyy",
+            disabledDates: {
+            to: new Date(Date.now() - 8640000)
+                }
+              }
+           },
+         
+
         methods:{
             onChange() {
                let insurance = document.getElementById('insurance'); 
                let insurance2 = document.getElementById('insurance2');
                
-          
+               // console.log(this.dateStart.getTime());
                 //vyparsuje zvolený dátum v milisekundách (den ma 86400000 ms) a vysledok vydelíš dnom, nasledne jedno od druheho odčitaš a to +1 je že zahrna už aj zvolený den
-               let date1 = Date.parse(this.dateStart)/86400000;
-               let date2 = Date.parse(this.dateEnd)/86400000;
-               
+              let d1 = this.dateStart.getTime();
+              let date1= d1 /86400000;
+              let d2 = this.dateEnd.getTime();
+              let date2 = d2 /86400000;
+             
   
               //celoročné,zakladne
                 if(insurance.value == "dlhodobe" && insurance2.value == "zakladny" ){
@@ -175,21 +188,13 @@ export default{
                   return this.final = ((date2 - date1 + 1) * 2.4).toFixed(2) + '€'; 
               }            
               else{
-                  return this.final =  'Vyplň všetky povinne polia'; 
+                  return this.final = 'Vyplň všetky povinne polia'; 
               }
              },
 
-          getDate(date) {
-            console.log("current date", date);
-          }, 
           
-        },
-      }
-
-
+        },  
+      };
 </script>
 
-
-<style src="@/assets/sass/app.scss" lang="scss"> 
-
-</style>
+<style src="@/assets/sass/app.scss" lang="scss"></style>
