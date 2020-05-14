@@ -101,7 +101,7 @@
 
                 <div class="col">             
                   <input type="text" :placeholder="final">               
-                  <button type="submit" class="btn btn-primary mt-3"  >Vypočítaj</button>                                
+                  <button :disabled="isDisabled" class="btn btn-primary mt-3"  >Vypočítaj</button>                                
               </div>
 
             </div> 
@@ -120,6 +120,7 @@ export default{
               },
         data: function(){
           return{
+            formInvalid: true,
             insurance1: '',
             insurance2: '',        
             final: '', 
@@ -148,6 +149,11 @@ export default{
               }
            },
          
+         computed:{
+           isDisabled: function(){
+            return !this.insurance1 || !this.insurance2;
+          }
+         },
 
         methods:{
             calculateInsuranceCosts() {            
@@ -172,7 +178,7 @@ export default{
               let d2 = this.dateEnd.getTime();
               let date2 = d2 /86400000;
 
-              let packageWithDate = packageValue*(date2-date1);
+              let packageWithDate = packageValue*(date2-date1 +1);
              
               
                 if(this.storno && this.sport){
